@@ -1,0 +1,28 @@
+{
+  "name": "understand-quickjs",
+  "version": "1.0.0",
+  "description": "通过源码分析 javascript 引擎 quickjs 的原理",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "deploy": "sh deploy.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcuking/understand-quickjs.git"
+  },
+  "keywords": [
+    "javascript",
+    "engine"
+  ],
+  "author": "mcuking",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mcuking/understand-quickjs/issues"
+  },
+  "homepage": "https://github.com/mcuking/understand-quickjs#readme",
+  "devDependencies": {
+    "vuepress": "^1.6.0"
+  }
+}
