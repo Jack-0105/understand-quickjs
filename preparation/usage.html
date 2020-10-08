@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>QuickJS 的使用 | 深入 JavaScript 引擎</title>
+    <meta name="generator" content="VuePress 1.6.0">
+    <link rel="shortcut icon" type="image/x-icon" href="/understand-quickjs/favicon.ico">
+    <meta name="description" content="通过源码分析 javascript 引擎 quickjs 的原理">
+    <link rel="preload" href="/understand-quickjs/assets/css/0.styles.469f8464.css" as="style"><link rel="preload" href="/understand-quickjs/assets/js/app.09374df4.js" as="script"><link rel="preload" href="/understand-quickjs/assets/js/2.70e9c50f.js" as="script"><link rel="preload" href="/understand-quickjs/assets/js/10.3edbf51f.js" as="script"><link rel="prefetch" href="/understand-quickjs/assets/js/3.db1b9e5e.js"><link rel="prefetch" href="/understand-quickjs/assets/js/4.47a91bbd.js"><link rel="prefetch" href="/understand-quickjs/assets/js/5.3b1ff64e.js"><link rel="prefetch" href="/understand-quickjs/assets/js/6.e416f727.js"><link rel="prefetch" href="/understand-quickjs/assets/js/7.e45b3914.js"><link rel="prefetch" href="/understand-quickjs/assets/js/8.5c68a222.js"><link rel="prefetch" href="/understand-quickjs/assets/js/9.ff3ddd91.js">
+    <link rel="stylesheet" href="/understand-quickjs/assets/css/0.styles.469f8464.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/understand-quickjs/" class="home-link router-link-active"><!----> <span class="site-name">深入 JavaScript 引擎</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"> <a href="https://github.com/mcuking/understand-quickjs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-labelledby="outbound-link-title" role="img" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><title id="outbound-link-title">(opens new window)</title> <path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"> <a href="https://github.com/mcuking/understand-quickjs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-labelledby="outbound-link-title" role="img" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><title id="outbound-link-title">(opens new window)</title> <path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><a href="/understand-quickjs/" aria-current="page" class="sidebar-link">前言</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>第 1 章 初识 QuickJS</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/understand-quickjs/preparation/intro.html" class="sidebar-link">1.1 QuickJS 简介</a></li><li><a href="/understand-quickjs/preparation/structure.html" class="sidebar-link">1.2 QuickJS 源码目录结构</a></li><li><a href="/understand-quickjs/preparation/usage.html" aria-current="page" class="active sidebar-link">1.3 QuickJS 的使用</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/understand-quickjs/preparation/usage.html#安装" class="sidebar-link">安装</a></li><li class="sidebar-sub-header"><a href="/understand-quickjs/preparation/usage.html#快速开始" class="sidebar-link">快速开始</a></li><li class="sidebar-sub-header"><a href="/understand-quickjs/preparation/usage.html#命令行选项" class="sidebar-link">命令行选项</a></li><li class="sidebar-sub-header"><a href="/understand-quickjs/preparation/usage.html#qjscalc-应用" class="sidebar-link">qjscalc 应用</a></li><li class="sidebar-sub-header"><a href="/understand-quickjs/preparation/usage.html#内置测试" class="sidebar-link">内置测试</a></li><li class="sidebar-sub-header"><a href="/understand-quickjs/preparation/usage.html#test262-ecmascript-test-suite" class="sidebar-link">Test262 (ECMAScript Test Suite)</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="quickjs-的使用"><a href="#quickjs-的使用" class="header-anchor">#</a> QuickJS 的使用</h1> <h2 id="安装"><a href="#安装" class="header-anchor">#</a> 安装</h2> <p>项目中提供了一个 Makefile 文件来在 Linux 或 MacOS/X 上编译引擎。通过使用 MingGW 工具在 Linux 主机上进行交叉编译，可以获得 Windows 的初步支持。</p> <p>如果要选择特定的编译选项，请编辑 <code>Makefile</code> 的顶部部分，然后运行 <code>make</code> 命令。</p> <p>如果希望将二进制文件和依赖文件安装到 /usr/local，则可以以 root 用户身份输入 <code>make install</code> 命令（使用 QuickJS 不需要这样做）。</p> <h2 id="快速开始"><a href="#快速开始" class="header-anchor">#</a> 快速开始</h2> <h3 id="qjs"><a href="#qjs" class="header-anchor">#</a> qjs</h3> <p>qjs 是命令行解释器（REPL， 即Read-Eval-Print Loop）。你可以将 JavaScript
+文件或 JavaScript 表达式作为参数传入来执行它们：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token punctuation">.</span><span class="token operator">/</span>qjs examples<span class="token operator">/</span>hello<span class="token punctuation">.</span>js
+</code></pre></div><h3 id="qjsc"><a href="#qjsc" class="header-anchor">#</a> qjsc</h3> <p>qjsc 是命令行编译器：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token punctuation">.</span><span class="token operator">/</span>qjsc <span class="token operator">-</span>o hello examples<span class="token operator">/</span>hello<span class="token punctuation">.</span>js
+<span class="token punctuation">.</span><span class="token operator">/</span>hello
+</code></pre></div><p>执行上面的命令会生成没有外部依赖的名为 <code>hello</code> 的可执行文件。</p> <h2 id="命令行选项"><a href="#命令行选项" class="header-anchor">#</a> 命令行选项</h2> <h3 id="qjs-解释器"><a href="#qjs-解释器" class="header-anchor">#</a> qjs 解释器</h3> <p>用法：qjs [options] [file [args]]</p> <p>Options 如下：</p> <p>-h
+--help
+列举选项。</p> <p>-e EXPR
+--eval EXPR
+执行 EXPR。</p> <p>-i
+---interactive
+进入交互模式（当命令行提供的是文件时，交互模式不是默认设置的）。</p> <p>-m
+--module
+作为 ES6 模块加载（默认自动检测）。如果文件名为 <code>.mjs</code> 或者如果源码中第一个关键字是 <code>import</code>，则会自动检测为模块。</p> <p>--script
+作为 ES6 脚本加载（默认自动检测）。</p> <p>--bignum
+启用 bignum 扩展：BigDecimal对象，BigFloat对象和 &quot;use math&quot; 指令。</p> <p>-I file
+--include file
+包括附加文件。</p> <p>高级选项包括：</p> <p>--std
+是 std 和 os 模块可以用于已经加载的脚本，即使它不是模块。</p> <p>-d
+--dump
+转储内存使用情况统计信息。</p> <p>-q
+--quit
+只需实例化解释器并退出。</p> <h3 id="qjsc-编译器"><a href="#qjsc-编译器" class="header-anchor">#</a> qjsc 编译器</h3> <p>用法：qjsc [options] [files]</p> <p>Options 如下：</p> <p>-c
+仅在 C 文件中输出字节码。默认为输出可执行文件。</p> <p>-e
+在 C 文件中输出 <code>main（）</code> 和字节码。默认为输出可执行文件。</p> <p>-o output
+设置输出文件名（默认为 <code>out.c</code> 或 <code>a.out</code>）。</p> <p>-N cname
+设置生成数据的 C 名称。</p> <p>-m
+编译为 JavasSript 模块（默认自动检测）。</p> <p>-D module_name
+编译动态加载的模块及其依赖项。当代码中使用了 <code>import</code> 关键字或者 <code>os.Worker</code> 构造函数时，此选项是必需的，因为编译器无法静态地找到动态加载的模块的名称。</p> <p>-M module_name[,cname]
+为外部 C 模块添加初始化代码。请参阅 <code>c_module</code> 示例。</p> <p>-x
+字节交换输出（仅用于交叉编译）。</p> <p>-flto
+使用链接时间优化。编译过程较慢，但可执行文件更小更快。当使用 <code>-fno-x</code> 选项时，将自动设置此选项。</p> <p>-fno-[eval|string-normalize|regexp|json|proxy|map|typedarray|promise|bigint]
+禁用选定的语言功能以便生成较小的可执行文件。</p> <p>-fbignum
+启用 bignum 扩展：BigDecimal对象，BigFloat对象和 &quot;use math&quot; 指令。</p> <h2 id="qjscalc-应用"><a href="#qjscalc-应用" class="header-anchor">#</a> qjscalc 应用</h2> <p><code>qjscalc</code> 应用是 qjs 命令行解释器的超集，实现了具有任意大的整数和浮点数，分数，复数，多项式和矩阵的 JavaScript 计算器。源代码在qjscalc.js中。有关更多文档和Web版本的信息，请访问 http://numcalc.com。</p> <h2 id="内置测试"><a href="#内置测试" class="header-anchor">#</a> 内置测试</h2> <p>执行 <code>make test</code> 以运行 QuickJS 项目中包含的一些内置测试。</p> <h2 id="test262-ecmascript-test-suite"><a href="#test262-ecmascript-test-suite" class="header-anchor">#</a> Test262 (ECMAScript Test Suite)</h2> <p>QuickJS 项目中包含了 test262 的运行程序。test262 tests 可以通过在 QuickJS 项目中执行下面的命令安装：</p> <div class="language-js extra-class"><pre class="language-js"><code>git clone https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>tc39<span class="token operator">/</span>test262<span class="token punctuation">.</span>git test262
+cd test262
+patch <span class="token operator">-</span>p1 <span class="token operator">&lt;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">/</span>tests<span class="token operator">/</span>test262<span class="token punctuation">.</span>patch
+cd <span class="token punctuation">.</span><span class="token punctuation">.</span>
+</code></pre></div><p>该 patch 修补程序添加了实现特定的工具功能，并优化了效率低下的 RegExp 字符类和 Unicode 属性转义测试（测试本身未修改，仅优化了较慢的字符串初始化功能）。</p> <p>该测试套件可以通过 <code>make test2</code> 命令运行。</p> <p>配置文件 test262.conf（对于 ES5.1 配置文件为 test262o.conf）包含用于运行各种测试的选项。可以根据功能或文件名排除测试。</p> <p>文件 test262_errors.txt 包含当前错误列表。当出现新错误或纠正或修改现有错误时，运行程序将显示一条消息。使用 <code>-u</code> 选项更新当前错误列表（或 <code>make test2-update</code>）。</p> <p>文件 test262_report.txt 包含所有测试的日志。对特定错误进行更清晰的分析很有用。万一发生崩溃，最后一行对应于失败的测试。</p> <p>使用语法 <code>./run-test262 -c test262.conf -f filename.js</code> 运行单个测试。使用语法 <code>./run-test262 -c test262.conf N</code> 以测试编号 N 开始测试。</p> <p>有关更多信息，请运行 <code>./run-test262</code> 以查看 test262 运行程序的命令行选项。</p> <p><code>run-test262</code> 接受从 <code>test262-harness5</code> 到 <code>eshost</code> 调用的 -N 选项。除非想在相同条件下将 QuickJS 与其他引擎进行比较，否则不建议以此方式运行测试，因为它要慢得多（通常为半小时而不是大约 100 秒）。</p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/mcuking/understand-quickjs/edit/master/docs/preparation/usage.md" target="_blank" rel="noopener noreferrer">为该章节纠错</a> <svg xmlns="http://www.w3.org/2000/svg" aria-labelledby="outbound-link-title" role="img" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><title id="outbound-link-title">(opens new window)</title> <path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">10/8/2020, 9:20:46 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/understand-quickjs/preparation/structure.html" class="prev">
+        1.2 QuickJS 源码目录结构
+      </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/understand-quickjs/assets/js/app.09374df4.js" defer></script><script src="/understand-quickjs/assets/js/2.70e9c50f.js" defer></script><script src="/understand-quickjs/assets/js/10.3edbf51f.js" defer></script>
+  </body>
+</html>

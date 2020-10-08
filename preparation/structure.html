@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>QuickJS 源码目录结构 | 深入 JavaScript 引擎</title>
+    <meta name="generator" content="VuePress 1.6.0">
+    <link rel="shortcut icon" type="image/x-icon" href="/understand-quickjs/favicon.ico">
+    <meta name="description" content="通过源码分析 javascript 引擎 quickjs 的原理">
+    <link rel="preload" href="/understand-quickjs/assets/css/0.styles.469f8464.css" as="style"><link rel="preload" href="/understand-quickjs/assets/js/app.09374df4.js" as="script"><link rel="preload" href="/understand-quickjs/assets/js/2.70e9c50f.js" as="script"><link rel="preload" href="/understand-quickjs/assets/js/9.ff3ddd91.js" as="script"><link rel="prefetch" href="/understand-quickjs/assets/js/10.3edbf51f.js"><link rel="prefetch" href="/understand-quickjs/assets/js/3.db1b9e5e.js"><link rel="prefetch" href="/understand-quickjs/assets/js/4.47a91bbd.js"><link rel="prefetch" href="/understand-quickjs/assets/js/5.3b1ff64e.js"><link rel="prefetch" href="/understand-quickjs/assets/js/6.e416f727.js"><link rel="prefetch" href="/understand-quickjs/assets/js/7.e45b3914.js"><link rel="prefetch" href="/understand-quickjs/assets/js/8.5c68a222.js">
+    <link rel="stylesheet" href="/understand-quickjs/assets/css/0.styles.469f8464.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/understand-quickjs/" class="home-link router-link-active"><!----> <span class="site-name">深入 JavaScript 引擎</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"> <a href="https://github.com/mcuking/understand-quickjs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-labelledby="outbound-link-title" role="img" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><title id="outbound-link-title">(opens new window)</title> <path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"> <a href="https://github.com/mcuking/understand-quickjs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-labelledby="outbound-link-title" role="img" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><title id="outbound-link-title">(opens new window)</title> <path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><a href="/understand-quickjs/" aria-current="page" class="sidebar-link">前言</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>第 1 章 初识 QuickJS</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/understand-quickjs/preparation/intro.html" class="sidebar-link">1.1 QuickJS 简介</a></li><li><a href="/understand-quickjs/preparation/structure.html" aria-current="page" class="active sidebar-link">1.2 QuickJS 源码目录结构</a></li><li><a href="/understand-quickjs/preparation/usage.html" class="sidebar-link">1.3 QuickJS 的使用</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="quickjs-源码目录结构"><a href="#quickjs-源码目录结构" class="header-anchor">#</a> QuickJS 源码目录结构</h1> <p>下面是 QuickJS 项目的目录结构（只列举了主要文件）：</p> <div class="language-js extra-class"><pre class="language-js"><code>quickjs<span class="token punctuation">.</span>c quickjs<span class="token punctuation">.</span>h    主程序位置（编译器和解释器功能实现都在这里）
+quickjs<span class="token operator">-</span>atom<span class="token punctuation">.</span>h         预定义的字符串
+quickjs<span class="token operator">-</span>opcode<span class="token punctuation">.</span>h       字节码中的操作符定义
+
+qjsc<span class="token punctuation">.</span>c                 编译器程序 qjsc 的入口
+
+qjs<span class="token punctuation">.</span>c                  <span class="token constant">REPL</span> 交互解释器 qjs 的入口
+repl<span class="token punctuation">.</span>js                <span class="token constant">REPL</span> 的实现
+qjscalc<span class="token punctuation">.</span>js             数学计算器应用，支持任意长度的整数、浮点数、分数、复数、多项式、矩阵计算
+
+cutils<span class="token punctuation">.</span>c cutils<span class="token punctuation">.</span>h      辅助函数
+list<span class="token punctuation">.</span>h                 klist 实现
+libbf<span class="token punctuation">.</span>c libbf<span class="token punctuation">.</span>h        BigFloat 实现
+libregexp<span class="token punctuation">.</span>c libregexp<span class="token punctuation">.</span>h libregexp<span class="token operator">-</span>opcode<span class="token punctuation">.</span>h      正则表达式实现
+libunicode<span class="token punctuation">.</span>c libunicode<span class="token punctuation">.</span>h libunicode<span class="token operator">-</span>table<span class="token punctuation">.</span>h    Unicode 编码的支持
+
+
+quickjs<span class="token operator">-</span>libc<span class="token punctuation">.</span>c quickjs<span class="token operator">-</span>libc<span class="token punctuation">.</span>h  暴露给 <span class="token constant">C</span> 程序使用的 <span class="token constant">API</span>
+
+examples<span class="token operator">/</span>     示例 <span class="token constant">JS</span> 程序
+tests<span class="token operator">/</span>        测试程序
+doc<span class="token operator">/</span>          文档
+Changelog<span class="token operator">/</span>    程序修改记录
+
+readme<span class="token punctuation">.</span>txt    部分内容介绍
+Makefile      QuickJS 项目构建文件
+<span class="token constant">TODO</span>          未来计划做的事情
+<span class="token constant">VERSION</span>       QuickJS 当前版本发布日期
+</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/mcuking/understand-quickjs/edit/master/docs/preparation/structure.md" target="_blank" rel="noopener noreferrer">为该章节纠错</a> <svg xmlns="http://www.w3.org/2000/svg" aria-labelledby="outbound-link-title" role="img" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><title id="outbound-link-title">(opens new window)</title> <path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">10/8/2020, 9:20:27 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/understand-quickjs/preparation/intro.html" class="prev">
+        1.1 QuickJS 简介
+      </a></span> <span class="next"><a href="/understand-quickjs/preparation/usage.html">
+        1.3 QuickJS 的使用
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/understand-quickjs/assets/js/app.09374df4.js" defer></script><script src="/understand-quickjs/assets/js/2.70e9c50f.js" defer></script><script src="/understand-quickjs/assets/js/9.ff3ddd91.js" defer></script>
+  </body>
+</html>
