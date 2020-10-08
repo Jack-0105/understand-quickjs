@@ -24,6 +24,7 @@ module.exports = {
         children: [
           ["/preparation/intro", "1.1 QuickJS 简介"],
           ["/preparation/structure", "1.2 QuickJS 源码目录结构"],
+          ["/preparation/usage", "1.3 QuickJS 的使用"],
         ],
       },
     ],
